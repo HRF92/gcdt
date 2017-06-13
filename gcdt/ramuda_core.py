@@ -237,7 +237,7 @@ def deploy_lambda(awsclient, function_name, role, handler_filename,
                   security_groups=None, artifact_bucket=None,
                   zipfile=None,
                   fail_deployment_on_unsuccessful_ping=False,
-                  runtime='python2.7', settings=None):
+                  runtime='python2.7', settings=None, environment=None):
     """Create or update a lambda function.
 
     :param awsclient:
@@ -253,6 +253,7 @@ def deploy_lambda(awsclient, function_name, role, handler_filename,
     :param security_groups:
     :param artifact_bucket:
     :param zipfile:
+    :param environment: environment variables
     :return: exit_code
     """
     if lambda_exists(awsclient, function_name):
@@ -262,7 +263,8 @@ def deploy_lambda(awsclient, function_name, role, handler_filename,
                                           description, timeout, memory,
                                           subnet_ids, security_groups,
                                           artifact_bucket=artifact_bucket,
-                                          zipfile=zipfile
+                                          zipfile=zipfile,
+                                          environment=environment
                                         )
     else:
         if not zipfile:
@@ -273,7 +275,8 @@ def deploy_lambda(awsclient, function_name, role, handler_filename,
                                           folders, description, timeout,
                                           memory, subnet_ids, security_groups,
                                           artifact_bucket, zipfile,
-                                          runtime=runtime)
+                                          runtime=runtime,
+                                          environment=environment)
     pong = ping(awsclient, function_name, version=function_version)
     if 'alive' in str(pong):
         print(colored.green('Great you\'re already accepting a ping ' +
@@ -293,16 +296,19 @@ def _create_lambda(awsclient, function_name, role, handler_filename,
                    handler_function,
                    folders, description, timeout, memory,
                    subnet_ids=None, security_groups=None,
-                   artifact_bucket=None, zipfile=None, runtime='python2.7'):
+                   artifact_bucket=None, zipfile=None, runtime='python2.7', environment=None):
     log.debug('create lambda function: %s' % function_name)
     # move to caller!
     # _install_dependencies_with_pip('requirements.txt', './vendored')
     client_lambda = awsclient.get_client('lambda')
     # print ('creating function %s with role %s handler %s folders %s timeout %s memory %s') % (
     # function_name, role, handler_filename, str(folders), str(timeout), str(memory))
+    if environment is None:
+        environment = {}
 
     if not artifact_bucket:
         log.debug('create without artifact bucket...')
+
         response = client_lambda.create_function(
             FunctionName=function_name,
             Runtime=runtime,
@@ -314,7 +320,10 @@ def _create_lambda(awsclient, function_name, role, handler_filename,
             Description=description,
             Timeout=int(timeout),
             MemorySize=int(memory),
-            Publish=True
+            Publish=True,
+            Environment={
+                'Variables': environment
+            }
         )
     elif artifact_bucket and zipfile:
         log.debug('create with artifact bucket...')
@@ -337,7 +346,10 @@ def _create_lambda(awsclient, function_name, role, handler_filename,
             Description=description,
             Timeout=int(timeout),
             MemorySize=int(memory),
-            Publish=True
+            Publish=True,
+            Environment={
+                'Variables': environment
+            }
         )
     else:
         log.debug('no zipfile and no artifact_bucket -> nothing to do!')
@@ -366,7 +378,7 @@ def _update_lambda(awsclient, function_name, handler_filename,
                    handler_function, folders,
                    role, description, timeout, memory, subnet_ids=None,
                    security_groups=None, artifact_bucket=None,
-                   zipfile=None
+                   zipfile=None, environment=None
                    ):
     log.debug('update lambda function: %s', function_name)
     _update_lambda_function_code(awsclient, function_name,
@@ -376,7 +388,8 @@ def _update_lambda(awsclient, function_name, handler_filename,
     function_version = \
         _update_lambda_configuration(
             awsclient, function_name, role, handler_function,
-            description, timeout, memory, subnet_ids, security_groups
+            description, timeout, memory, subnet_ids, security_groups,
+            environment
         )
     return function_version
 
@@ -439,9 +452,13 @@ def _update_lambda_function_code(
 def _update_lambda_configuration(awsclient, function_name, role,
                                  handler_function,
                                  description, timeout, memory, subnet_ids=None,
-                                 security_groups=None):
+                                 security_groups=None, environment=None):
     log.info('Update AWS Lambda configuration for function: %s' % function_name)
     client_lambda = awsclient.get_client('lambda')
+
+    if environment is None:
+        environment = {}
+
     if subnet_ids and security_groups:
         # print ('found vpc config')
         response = client_lambda.update_function_configuration(
@@ -454,6 +471,9 @@ def _update_lambda_configuration(awsclient, function_name, role,
             VpcConfig={
                 'SubnetIds': subnet_ids,
                 'SecurityGroupIds': security_groups
+            },
+            Environment={
+                'Variables': environment
             }
         )
         print(json2table(response))
@@ -464,7 +484,10 @@ def _update_lambda_configuration(awsclient, function_name, role,
             Handler=handler_function,
             Description=description,
             Timeout=timeout,
-            MemorySize=memory)
+            MemorySize=memory,
+            Environment={
+                'Variables': environment
+            })
 
         print(json2table(response))
     function_version = response['Version']
