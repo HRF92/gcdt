@@ -112,6 +112,10 @@ def test_create_lambda(awsclient, vendored_folder, cleanup_lambdas,
             "handlerFile": "./resources/sample_lambda/handler.py",
             "timeout": 300,
             "memorySize": 256,
+            "environment": {
+                "env": "dev",
+                "package_version": "1.0"
+            },
             "events": {
                 "s3Sources": [
                     {
@@ -175,6 +179,7 @@ def test_create_lambda(awsclient, vendored_folder, cleanup_lambdas,
     security_groups = config['lambda'].get('vpc', {}).get('securityGroups', None)
     region = config['deployment'].get('region')
     artifact_bucket = config['deployment'].get('artifactBucket', None)
+    environment_vars = config['lambda'].get('environment')
 
     zipfile = get_zipped_file(
         handler_filename,
@@ -192,7 +197,8 @@ def test_create_lambda(awsclient, vendored_folder, cleanup_lambdas,
         timeout=timeout,
         memory=memory_size,
         artifact_bucket=artifact_bucket,
-        zipfile=zipfile
+        zipfile=zipfile,
+        environment=environment_vars
     )
     # TODO improve this (by using a waiter??)
     cleanup_lambdas.append(lambda_name)
@@ -234,6 +240,10 @@ def test_create_lambda_nodejs(runtime, awsclient, temp_folder, cleanup_lambdas,
             "handlerFile": "index.js",
             "timeout": 300,
             "memorySize": 256,
+            "environment": {
+                "env": "dev",
+                "package_version": "1.0"
+            },
             "events": {
                 "s3Sources": [
                     {
@@ -294,6 +304,7 @@ def test_create_lambda_nodejs(runtime, awsclient, temp_folder, cleanup_lambdas,
     security_groups = config['lambda'].get('vpc', {}).get('securityGroups', None)
     region = config['deployment'].get('region')
     artifact_bucket = config['deployment'].get('artifactBucket', None)
+    environment_vars = config['lambda'].get('environment')
 
     zipfile = get_zipped_file(
         handler_filename,
@@ -313,7 +324,8 @@ def test_create_lambda_nodejs(runtime, awsclient, temp_folder, cleanup_lambdas,
         memory=memory_size,
         artifact_bucket=artifact_bucket,
         zipfile=zipfile,
-        runtime=runtime
+        runtime=runtime,
+        environment=environment_vars
     )
     # TODO improve this (by using a waiter??)
     cleanup_lambdas.append(lambda_name)
@@ -345,6 +357,10 @@ def test_create_lambda_with_s3(awsclient, vendored_folder, cleanup_lambdas,
             "handlerFile": "./resources/sample_lambda/handler.py",
             "timeout": 300,
             "memorySize": 256,
+            "environment": {
+                "env": "dev",
+                "package_version": "1.0"
+            },
             "events": {
                 "s3Sources": [
                     {
@@ -409,6 +425,7 @@ def test_create_lambda_with_s3(awsclient, vendored_folder, cleanup_lambdas,
     security_groups = config['lambda'].get('vpc', {}).get('securityGroups', None)
     region = config['deployment'].get('region')
     artifact_bucket = config['deployment'].get('artifactBucket', None)
+    environment_vars = config['lambda'].get('environment')
 
     zipfile = get_zipped_file(
         handler_filename,
@@ -426,7 +443,8 @@ def test_create_lambda_with_s3(awsclient, vendored_folder, cleanup_lambdas,
         timeout=timeout,
         memory=memory_size,
         artifact_bucket=artifact_bucket,
-        zipfile=zipfile
+        zipfile=zipfile,
+        environment=environment_vars
     )
     cleanup_lambdas.append(lambda_name)
 
@@ -664,13 +682,14 @@ def test_update_lambda_configuration(awsclient, vendored_folder, temp_lambda):
     role_arn = temp_lambda[2]
     handler_function = './resources/sample_lambda/handler_counter.py'
     lambda_description = 'lambda created for unittesting ramuda deployment'
+    environment = {'env': 'dev', 'package_version': '1.0'}
 
     timeout = 300
     memory_size = 256
     function_version = _update_lambda_configuration(awsclient, lambda_name,
                                                     role_arn, handler_function,
                                                     lambda_description, timeout,
-                                                    memory_size)
+                                                    memory_size, environment)
     assert_equal(function_version, '$LATEST')
 
 

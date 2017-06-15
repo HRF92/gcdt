@@ -138,11 +138,16 @@ lambda {
   handlerFunction = "handler.lambda_handler"
   handlerFile = "handler.py"
   timeout = "180"
-  memorySize = "128"
+  memorySize = "128",
+  "environment": {
+     "env": "prod",
+     "package_version": "1.0"
+  }
+
   events {
     s3Sources = [
         { bucket = "dp-dev-store-cdn-redshift-manifests", type = "s3:ObjectCreated:*", suffix = ".json" },
-        { 
+        {
             bucket = "dp-dev-store-cdn-redshift-manifests",
             type = "s3:ObjectCreated:*",
             prefix = "folder",
@@ -227,7 +232,7 @@ export ENV=DEV
 
 gcdt supports the `nodejs4.3`, `nodejs6.10`, `python2.7`, `python3.6` runtimes.
 
-Add the runtime config to the `lambda` section of your gcdt configuration. 
+Add the runtime config to the `lambda` section of your gcdt configuration.
 
 ``` js
     "runtime": "nodejs4.3"
@@ -265,9 +270,9 @@ A sample `package.json` file to that defines a dependency to the `1337` npm modu
 #### Sample NodeJs lambda function
 
 From using lambda extensively we find it a good practise to implement the `ping` feature. With the ping `ramdua` automatically checks if your code is running fine on AWS.
- 
+
  Please consider to implement a `ping` in your own lambda functions:
- 
+
  ```javascript
 var l33t = require('1337')
 
