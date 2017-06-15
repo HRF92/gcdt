@@ -1,24 +1,27 @@
 {
-    "status_code": 200,
+    "status_code": 200, 
     "data": {
+        "FunctionError": "Unhandled", 
         "Payload": {
-            "body": "\"alive\"",
-            "__module__": "botocore.response",
+            "body": "{\"errorMessage\":\"Cannot find module '1337'\",\"errorType\":\"Error\",\"stackTrace\":[\"Function.Module._load (module.js:417:25)\",\"Module.require (module.js:497:17)\",\"require (internal/module.js:20:19)\",\"Object.<anonymous> (/var/task/index.js:1:74)\",\"Module._compile (module.js:570:32)\",\"Object.Module._extensions..js (module.js:579:10)\",\"Module.load (module.js:487:32)\",\"tryModuleLoad (module.js:446:12)\",\"Function.Module._load (module.js:438:3)\"]}", 
+            "__module__": "botocore.response", 
             "__class__": "StreamingBody"
-        },
+        }, 
         "ResponseMetadata": {
-            "RetryAttempts": 0,
-            "HTTPStatusCode": 200,
-            "RequestId": "2e8ed983-f2cd-11e6-ab20-6f351c63063c",
+            "RetryAttempts": 0, 
+            "HTTPStatusCode": 200, 
+            "RequestId": "92437483-51a4-11e7-8963-f391d1ad434e", 
             "HTTPHeaders": {
-                "x-amzn-requestid": "2e8ed983-f2cd-11e6-ab20-6f351c63063c",
-                "content-length": "7",
-                "x-amzn-remapped-content-length": "0",
-                "connection": "keep-alive",
-                "date": "Tue, 14 Feb 2017 15:49:34 GMT",
+                "x-amzn-requestid": "92437483-51a4-11e7-8963-f391d1ad434e", 
+                "content-length": "440", 
+                "x-amzn-remapped-content-length": "0", 
+                "x-amzn-trace-id": "root=1-5942451c-05e9209a858e65f00f29c050;sampled=0", 
+                "x-amz-function-error": "Unhandled", 
+                "connection": "keep-alive", 
+                "date": "Thu, 15 Jun 2017 08:28:12 GMT", 
                 "content-type": "application/json"
             }
-        },
+        }, 
         "StatusCode": 200
     }
 }

@@ -1,29 +1,38 @@
 {
-    "status_code": 201,
+    "status_code": 201, 
     "data": {
-        "CodeSha256": "H1+SHVarBM4pLQY9z8FEr60nPvPdXfvjP9iv3djAWAk=",
-        "FunctionName": "jenkins_test_imeuvf",
+        "TracingConfig": {
+            "Mode": "PassThrough"
+        }, 
+        "CodeSha256": "nPaDOjEBvJcOHMn9yJChkM+JrbSrL0pjYkZQVqrcQ4A=", 
+        "FunctionName": "jenkins_test_pnnxnz", 
         "ResponseMetadata": {
-            "RetryAttempts": 0,
-            "HTTPStatusCode": 201,
-            "RequestId": "256ce67b-f2cd-11e6-99ac-512051fdf317",
+            "RetryAttempts": 0, 
+            "HTTPStatusCode": 201, 
+            "RequestId": "88fd08e4-51a4-11e7-ba18-1b2dce9162e4", 
             "HTTPHeaders": {
-                "date": "Tue, 14 Feb 2017 15:49:18 GMT",
-                "x-amzn-requestid": "256ce67b-f2cd-11e6-99ac-512051fdf317",
-                "content-length": "515",
-                "content-type": "application/json",
+                "date": "Thu, 15 Jun 2017 08:27:56 GMT", 
+                "x-amzn-requestid": "88fd08e4-51a4-11e7-ba18-1b2dce9162e4", 
+                "content-length": "631", 
+                "content-type": "application/json", 
                 "connection": "keep-alive"
             }
-        },
-        "CodeSize": 3091,
-        "MemorySize": 256,
-        "FunctionArn": "arn:aws:lambda:eu-west-1:420189626185:function:jenkins_test_imeuvf",
-        "Version": "1",
-        "Role": "arn:aws:iam::420189626185:role/unittest_imeuvf_lambda",
-        "Timeout": 300,
-        "LastModified": "2017-02-14T15:49:19.175+0000",
-        "Handler": "index.handler",
-        "Runtime": "nodejs4.3",
+        }, 
+        "CodeSize": 348, 
+        "MemorySize": 256, 
+        "FunctionArn": "arn:aws:lambda:eu-west-1:028693506758:function:jenkins_test_pnnxnz", 
+        "Environment": {
+            "Variables": {
+                "package_version": "1.0", 
+                "env": "dev"
+            }
+        }, 
+        "Version": "1", 
+        "Role": "arn:aws:iam::028693506758:role/unittest_pnnxnz_lambda", 
+        "Timeout": 300, 
+        "LastModified": "2017-06-15T08:27:57.319+0000", 
+        "Handler": "index.handler", 
+        "Runtime": "nodejs6.10", 
         "Description": "lambda test for ramuda"
     }
 }

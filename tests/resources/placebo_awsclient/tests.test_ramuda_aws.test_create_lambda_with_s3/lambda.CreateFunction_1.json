@@ -1,29 +1,38 @@
 {
-    "status_code": 201,
+    "status_code": 201, 
     "data": {
-        "CodeSha256": "vnjtrE5/tV1iT54RMHCRlL6cwa+NVLS+zr9dtPGWHfU=",
-        "FunctionName": "jenkins_test_oxfzts",
+        "TracingConfig": {
+            "Mode": "PassThrough"
+        }, 
+        "CodeSha256": "H0w0wekRehPKQIjO4sMCdDyQ98syJsLmV5q9DdMGF+8=", 
+        "FunctionName": "jenkins_test_pxxqir", 
         "ResponseMetadata": {
-            "RetryAttempts": 0,
-            "HTTPStatusCode": 201,
-            "RequestId": "3ba44f26-f2cd-11e6-a568-5163192d1fca",
+            "RetryAttempts": 0, 
+            "HTTPStatusCode": 201, 
+            "RequestId": "a403d38f-51a4-11e7-a732-a9bcc1dc774d", 
             "HTTPHeaders": {
-                "date": "Tue, 14 Feb 2017 15:49:56 GMT",
-                "x-amzn-requestid": "3ba44f26-f2cd-11e6-a568-5163192d1fca",
-                "content-length": "525",
-                "content-type": "application/json",
+                "date": "Thu, 15 Jun 2017 08:28:42 GMT", 
+                "x-amzn-requestid": "a403d38f-51a4-11e7-a732-a9bcc1dc774d", 
+                "content-length": "641", 
+                "content-type": "application/json", 
                 "connection": "keep-alive"
             }
-        },
-        "CodeSize": 124403,
-        "MemorySize": 256,
-        "FunctionArn": "arn:aws:lambda:eu-west-1:420189626185:function:jenkins_test_oxfzts",
-        "Version": "1",
-        "Role": "arn:aws:iam::420189626185:role/unittest_oxfzts_lambda",
-        "Timeout": 300,
-        "LastModified": "2017-02-14T15:49:56.551+0000",
-        "Handler": "handler.handle",
-        "Runtime": "python2.7",
+        }, 
+        "CodeSize": 124235, 
+        "MemorySize": 256, 
+        "FunctionArn": "arn:aws:lambda:eu-west-1:028693506758:function:jenkins_test_pxxqir", 
+        "Environment": {
+            "Variables": {
+                "package_version": "1.0", 
+                "env": "dev"
+            }
+        }, 
+        "Version": "1", 
+        "Role": "arn:aws:iam::028693506758:role/unittest_pxxqir_lambda", 
+        "Timeout": 300, 
+        "LastModified": "2017-06-15T08:28:42.781+0000", 
+        "Handler": "handler.handle", 
+        "Runtime": "python2.7", 
         "Description": "lambda nodejs test for ramuda"
     }
 }

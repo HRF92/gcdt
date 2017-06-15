@@ -1,0 +1,33 @@
+{
+    "status_code": 200, 
+    "data": {
+        "Role": {
+            "AssumeRolePolicyDocument": "%7B%22Version%22%3A%20%222012-10-17%22%2C%20%22Statement%22%3A%20%5B%7B%22Action%22%3A%20%5B%22sts%3AAssumeRole%22%5D%2C%20%22Effect%22%3A%20%22Allow%22%2C%20%22Principal%22%3A%20%7B%22Service%22%3A%20%5B%22lambda.amazonaws.com%22%5D%7D%7D%5D%7D", 
+            "RoleId": "AROAIROQN5FHSZMC25Y5W", 
+            "CreateDate": {
+                "hour": 8, 
+                "__class__": "datetime", 
+                "month": 6, 
+                "second": 41, 
+                "microsecond": 223000, 
+                "year": 2017, 
+                "day": 15, 
+                "minute": 27
+            }, 
+            "RoleName": "unittest_pnnxnz_lambda", 
+            "Path": "/", 
+            "Arn": "arn:aws:iam::028693506758:role/unittest_pnnxnz_lambda"
+        }, 
+        "ResponseMetadata": {
+            "RetryAttempts": 0, 
+            "HTTPStatusCode": 200, 
+            "RequestId": "7f660ccf-51a4-11e7-93b0-475bbef760fd", 
+            "HTTPHeaders": {
+                "x-amzn-requestid": "7f660ccf-51a4-11e7-93b0-475bbef760fd", 
+                "date": "Thu, 15 Jun 2017 08:27:41 GMT", 
+                "content-length": "814", 
+                "content-type": "text/xml"
+            }
+        }
+    }
+}
