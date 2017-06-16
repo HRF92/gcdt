@@ -138,10 +138,10 @@ lambda {
   handlerFunction = "handler.lambda_handler"
   handlerFile = "handler.py"
   timeout = "180"
-  memorySize = "128",
-  "environment": {
-     "env": "prod",
-     "package_version": "1.0"
+  memorySize = "128"
+  environment {
+     env = "prod"
+     package_version = "1.0"
   }
 
   events {
@@ -248,6 +248,12 @@ At this point the following features are implemented:
 * if no runtime is defined gcdt uses the default runtime `python2.7`
 
 Note: for this to work you need to **have npm installed** on the machine you want to run the ramuda bundling!
+
+#### AWS Lambda environment variables
+
+Ramuda supports AWS Lambda envrionment variables. You can specify them in `lambda.environment` section.
+
+More information you can find in [AWS docs](http://docs.aws.amazon.com/lambda/latest/dg/env_variables.html).
 
 
 #### Defining dependencies for your NodeJs lambda function
